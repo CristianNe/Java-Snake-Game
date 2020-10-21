@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -41,6 +42,8 @@ public class Board extends JPanel implements ActionListener {
     private Image ball;
     private Image apple;
     private Image head;
+    
+    private AudioPlayer player;
 
     public Board() {
         
@@ -56,6 +59,8 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         loadImages();
         initGame();
+        
+        player = new AudioPlayer("src/resources/eating_sound.wav");
     }
 
     private void loadImages() {
@@ -116,19 +121,31 @@ public class Board extends JPanel implements ActionListener {
 
     private void gameOver(Graphics g) {
         
-        String msg = "Game Over";
+        String msg = "Game Over\n\nRestart?";
         Font small = new Font("Helvetica", Font.BOLD, 14);
         FontMetrics metr = getFontMetrics(small);
-
+//        JButton restartButton = new JButton("Yes");
+//        JButton exitButton = new JButton("No");
+        
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
     }
 
     private void checkApple() {
 
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
-
+        	
+        	try 
+        	{
+				player.play();
+				
+			} 
+        	catch (Exception e) 
+        	{
+				e.printStackTrace();
+			}
             dots++;
             locateApple();
         }

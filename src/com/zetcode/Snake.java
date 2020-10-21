@@ -24,14 +24,10 @@ public class Snake extends JFrame {
     
 
     public static void main(String[] args) {
-        AudioPlayer eatingsound = new AudioPlayer("src/resources/eating_sound.wav");
-        try {
-        	eatingsound.play();
-        	System.out.println("played");
-        }catch(Exception e) {System.out.println("error");}
-        //        EventQueue.invokeLater(() -> {
-//            JFrame ex = new Snake();
-//            ex.setVisible(true);
-//        });
+        
+    	EventQueue.invokeLater(() -> {
+            JFrame ex = new Snake();
+            ex.setVisible(true);
+        });
     }
 }
